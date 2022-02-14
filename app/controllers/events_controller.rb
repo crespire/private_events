@@ -12,7 +12,7 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @event = Event.new
+    @event = current_user.event.build
   end
 
   # GET /events/1/edit
@@ -21,7 +21,7 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    @event = Event.new(event_params)
+    @event = current_user.event.build(event_params)
 
     respond_to do |format|
       if @event.save
@@ -49,6 +49,8 @@ class EventsController < ApplicationController
 
   # DELETE /events/1 or /events/1.json
   def destroy
+    @event = current_user.event.find(params[:id])
+
     @event.destroy
 
     respond_to do |format|
