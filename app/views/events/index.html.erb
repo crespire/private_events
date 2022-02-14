@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Event date</th>
       <th>Open join</th>
+      <th>Published</th>
       <th>Max guests</th>
       <th colspan="3"></th>
     </tr>
@@ -19,6 +20,7 @@
         <td><%= event.name %></td>
         <td><%= event.event_date %></td>
         <td><%= event.open_join %></td>
+        <td><%= event.published %></td>
         <td><%= event.max_guests %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
