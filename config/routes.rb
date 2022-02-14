@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :invitations
-  devise_for :users
-  resources :users
   root to: "events#index"
 
+  devise_for :users
+
   resources :events
+  resources :users
+  resources :invitations
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

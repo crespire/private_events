@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!, except: %i[index show]
 
   # GET /users or /users.json
   def index
@@ -8,11 +9,12 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @events = current_user.hosted_events.all
   end
 
   # GET /users/new
   def new
-    @user = User.new
+    redirect_to new_registration_path()
   end
 
   # GET /users/1/edit
