@@ -3,7 +3,7 @@
   <% @hosted_events.each do |event| %>
     <p>
       <h3><%= event.name%></h3>
-      <%= event.event_date %>, currently public: <%= event.published ? 'Currently published.' : 'Currently draft.' %>
+      <%= event.event_date %>, <%= event.published ? 'Currently published.' : 'Currently draft.' %>
     <p>
   <% end %>  
 </p>
