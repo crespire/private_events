@@ -12,5 +12,5 @@ gen_users.times do |i|
 end
 
 5.times do |i|
-  Event.create(name: "Test Event ##{i}", event_date: Date.new, max_guests: rand(50), creator_id: rand(gen_users))
+  Event.create(name: "Test Event ##{i}", event_date: Date.new, published: [true, false].sample, max_guests: rand(50), creator_id: rand(gen_users))
 end
