@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   # GET /events/1 or /events/1.json
   def show
     @current_guests = Event.find(params[:id]).attendees.all
-    @current_user_invite = Invitation.where(attendee_id: current_user.id, event_id: params[:id]).take
+    @current_user_invite = Invitation.where(attendee_id: current_user.id, event_id: params[:id]).take if user_signed_in?
   end
 
   # GET /events/new
@@ -54,7 +54,7 @@ class EventsController < ApplicationController
 
   # DELETE /events/1 or /events/1.json
   def destroy
-    @event = current_user.event.find(params[:id])
+    @event = current_user.hosted_events.find(params[:id])
 
     @event.destroy
 

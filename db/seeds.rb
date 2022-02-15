@@ -14,3 +14,5 @@ end
 5.times do |i|
   Event.create(name: "Test Event ##{i}", event_date: Date.new, published: [true, false].sample, max_guests: rand(5..50), creator_id: rand(1..gen_users))
 end
+
+puts 'Seeds completed.'

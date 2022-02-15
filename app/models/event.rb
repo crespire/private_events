@@ -10,6 +10,6 @@ class Event < ApplicationRecord
   scope :to_come, -> { where('event_date >= ?', Date.today) }
 
   has_one :creator, foreign_key: 'creator_id', class_name: 'User'
-  has_many :invitations
+  has_many :invitations, dependent: :destroy
   has_many :attendees, through: :invitations
 end
