@@ -4,7 +4,7 @@
     <p>
       <h3><%= link_to event.name, event_path(event) %></h3>
       <%= event.event_date %>, <%= event.published ? 'Currently published' : 'Currently draft' %> | 
-      <%= link_to 'Remove Event', event_path, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Remove Event', event_path(event.id), method: :delete, data: { confirm: 'Are you sure?' } %>
     <p>
   <% end %>  
 </p>
