@@ -14,7 +14,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    redirect_to new_registration_path()
+    redirect_to new_registration_path
   end
 
   # GET /users/1/edit
