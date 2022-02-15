@@ -9,7 +9,7 @@ class Event < ApplicationRecord
   scope :past, -> { where('event_date < ?', Date.today) }
   scope :to_come, -> { where('event_date >= ?', Date.today) }
 
-  has_one :creator, foreign_key: 'creator_id', class_name: 'User'
+  has_one :host, foreign_key: 'id', class_name: 'User'
   has_many :invitations, dependent: :destroy
   has_many :attendees, through: :invitations
 end

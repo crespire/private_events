@@ -3,7 +3,7 @@
   <div>
     <h2><%= link_to event.name, event %></h2>
     <p>
-      Hosted by: <%= User.find(event.creator_id).name %> at <%= event.event_date %><br>
+      Hosted by: <%= event.host.name %> at <%= event.event_date %><br>
       Maximum guests: <%= event.max_guests %>
       <% if user_signed_in? && event.creator_id == current_user.id %>
         -> <%= link_to 'Edit', edit_event_path(event) %> | 
@@ -19,7 +19,7 @@
   <div>
     <h2><%= link_to event.name, event %></h2>
     <p>
-      Hosted by: <%= User.find(event.creator_id).name %> at <%= event.event_date %><br>
+      Hosted by: <%= event.host.name %> at <%= event.event_date %><br>
       Maximum guests: <%= event.max_guests %>
       <% if user_signed_in? && event.creator_id == current_user.id %>
         -> <%= link_to 'Edit', edit_event_path(event) %> | 
