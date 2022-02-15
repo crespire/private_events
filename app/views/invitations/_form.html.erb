@@ -1,3 +1,6 @@
+<h2><%= event.name %></h2>
+<p><%= event.event_date %></p>
+
 <%= form_with(model: invitation) do |form| %>
   <% if invitation.errors.any? %>
     <div id="error_explanation">
@@ -10,18 +13,10 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :event_id %>
-    <%= form.number_field :event_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :attendee_id %>
-    <%= form.number_field :attendee_id %>
-  </div>
+  <%= form.hidden_field :event_id, value: params[:event_id] %>
+  <%= form.hidden_field :attendee_id %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit value: "Join!" %>
   </div>
 <% end %>

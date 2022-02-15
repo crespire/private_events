@@ -13,7 +13,7 @@ class InvitationsController < ApplicationController
 
   # GET /invitations/new
   def new
-    @invitation = Invitation.new
+    @invitation = current_user.invitations.build
   end
 
   # GET /invitations/1/edit
@@ -22,7 +22,7 @@ class InvitationsController < ApplicationController
 
   # POST /invitations or /invitations.json
   def create
-    @invitation = Invitation.new(invitation_params)
+    @invitation = current_user.invitations.build(invitation_params)
 
     respond_to do |format|
       if @invitation.save

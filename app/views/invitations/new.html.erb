@@ -1,5 +1,5 @@
-<h1>New Invitation</h1>
+<h1>Join Event</h1>
 
-<%= render 'form', invitation: @invitation %>
+<%= render 'form', invitation: @invitation, event: Event.find(params[:event_id]) %>
 
-<%= link_to 'Back', invitations_path %>
+<%= link_to 'Back', root_path %>
