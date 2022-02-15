@@ -14,6 +14,21 @@
   </div>
 <% end %>
 
+<% @past_events.each do |event| %>
+  <div>
+    <h2><%= link_to event.name, event %></h2>
+    <p>
+      Hosted by: <%= User.find(event.creator_id).name %> at <%= event.event_date %><br>
+      Maximum guests: <%= event.max_guests %>
+      <% if user_signed_in? && event.creator_id == current_user.id %>
+        -> <%= link_to 'Edit', edit_event_path(event) %> | 
+        <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+    </p>
+    
+  </div>
+<% end %>
+
 <% unless @pending_events.nil? || @pending_events.empty? %>
   <h1>Draft Events</h1>
 
