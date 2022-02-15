@@ -25,14 +25,14 @@ class InvitationsController < ApplicationController
 
   # POST /invitations or /invitations.json
   def create
-    event = Event.find(params[:event_id])
+    event = Event.find(params[:invitation][:event_id])
     redirect_to :root, alert: 'Event is currently not accepting more attendees.' unless event.open_join
 
     @invitation = current_user.invitations.build(invitation_params)
 
     respond_to do |format|
       if @invitation.save
-        format.html { redirect_to :root, notice: "Invitation was successfully created." }
+        format.html { redirect_to :root, notice: 'You joined the event!' }
         format.json { render :show, status: :created, location: @invitation }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,7 +59,7 @@ class InvitationsController < ApplicationController
     @invitation.destroy
 
     respond_to do |format|
-      format.html { redirect_to invitations_url, notice: "Invitation was successfully destroyed." }
+      format.html { redirect_to :root, notice: 'You are no longer an attendee of that event.' }
       format.json { head :no_content }
     end
   end

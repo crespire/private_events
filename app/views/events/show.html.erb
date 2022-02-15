@@ -2,8 +2,20 @@
 <p>
   <strong>Event date:</strong> <%= @event.event_date %><br>
   <strong>Capacity Limit:</strong> <%= @event.max_guests %><br>
+  <% unless @current_guests.nil? %>
+    <strong>Current guests: </strong>
+    <ul>
+    <% @current_guests.each do |guest| %>
+      <li><%= guest.name %></li>
+    <% end %>
+    </ul><br>
+  <% end %>
   <% if @event.open_join %>
-    <%= link_to 'You can still join this event.', new_invitation_path(:event_id => @event.id) %>
+    <% if @event.attendees.include?(current_user) %>
+      You've already joined this event! <%= link_to 'Remove me from the guest list.', invitation_path(@current_user_invite), method: :delete, data: { confirm: 'Really?' } %>
+    <% else %>
+      <%= link_to 'You can still join this event.', new_invitation_path(:event_id => @event.id) %>
+    <% end %>
   <% else %>
       This event is not open to join at the moment.
   <% end %>
