@@ -1,8 +1,8 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Events:</strong>
-  <% @events.each do |event| %>
+  <strong>All Hosted Events:</strong>
+  <% @hosted_events.each do |event| %>
     <% next unless event.published || event.creator_id == current_user.id %>
     <p>
     <h3><%= event.name%></h3>
@@ -11,4 +11,4 @@
   <% end %>
 </p>
 
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', root_path %>
