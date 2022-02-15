@@ -13,6 +13,9 @@ class InvitationsController < ApplicationController
 
   # GET /invitations/new
   def new
+    event = Event.find(params[:event_id])
+    redirect_to :root, alert: 'Event is currently not accepting more attendees.' unless event.open_join
+
     @invitation = current_user.invitations.build
   end
 
@@ -22,11 +25,14 @@ class InvitationsController < ApplicationController
 
   # POST /invitations or /invitations.json
   def create
+    event = Event.find(params[:event_id])
+    redirect_to :root, alert: 'Event is currently not accepting more attendees.' unless event.open_join
+
     @invitation = current_user.invitations.build(invitation_params)
 
     respond_to do |format|
       if @invitation.save
-        format.html { redirect_to invitation_url(@invitation), notice: "Invitation was successfully created." }
+        format.html { redirect_to :root, notice: "Invitation was successfully created." }
         format.json { render :show, status: :created, location: @invitation }
       else
         format.html { render :new, status: :unprocessable_entity }
