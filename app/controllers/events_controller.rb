@@ -11,7 +11,7 @@ class EventsController < ApplicationController
   # GET /events/1 or /events/1.json
   def show
     @current_guests = Event.find(params[:id]).attendees.all
-    @current_user_invite = Invitation.where(attendee_id: current_user.id).take
+    @current_user_invite = Invitation.where(attendee_id: current_user.id, event_id: params[:id]).take
   end
 
   # GET /events/new
