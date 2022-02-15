@@ -1,33 +1,17 @@
+<h2><%= @event.name %></h2>
 <p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
-
-<p>
-  <strong>Event date:</strong>
-  <%= @event.event_date %>
-</p>
-
-<p>
-  <strong>Open join:</strong>
-  <%= @event.open_join %>
-</p>
-
-<p>
-  <strong>Published:</strong>
-  <%= @event.published %>
-</p>
-
-<p>
-  <strong>Max guests:</strong>
-  <%= @event.max_guests %>
+  <strong>Event date:</strong> <%= @event.event_date %><br>
+  <strong>Capacity Limit:</strong> <%= @event.max_guests %><br>
+  <% if @event.open_join %>
+    <%= link_to 'You can still join this event.', new_invitation_path(:event_id => @event.id) %>
+  <% else %>
+      This event is not open to join at the moment.
+  <% end %>
 </p>
 
 <% if user_signed_in? %>
   <% if @event.creator_id == current_user.id %>
-    <%= link_to 'Edit', edit_event_path(@event) %>
-  <% else %>
-    <%= link_to 'Join', new_invitation_path(:event_id => @event.id) %>
-  <% end %> |&nbsp;
+    <%= link_to 'Edit Event', edit_event_path(@event) %>
+  <% end %>
 <% end %>
-<%= link_to 'Back', events_path %>
+<%= link_to 'Back', root_path %>
