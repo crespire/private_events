@@ -25,5 +25,7 @@
   <%= @event.max_guests %>
 </p>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+<% if user_signed_in? %>
+  <%= link_to 'Edit', edit_event_path(@event) if @event.creator_id == current_user.id %> |
+  <%= link_to 'Back', events_path %>
+<% end %>

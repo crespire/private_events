@@ -6,10 +6,11 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-25.times do |i|
+gen_users = 25
+gen_users.times do |i|
   User.create(name: "test_user#{i}", email: "test#{i}@test.com", password: 'testpass')
 end
 
 5.times do |i|
-  Event.create(name: "Test Event ##{i}", event_date: Date.new, max_guests: rand(50))
+  Event.create(name: "Test Event ##{i}", event_date: Date.new, max_guests: rand(50), creator_id: rand(gen_users))
 end

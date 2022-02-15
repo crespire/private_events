@@ -1,35 +1,41 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Events</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Event date</th>
-      <th>Open join</th>
-      <th>Published</th>
-      <th>Max guests</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= event.name %></td>
-        <td><%= event.event_date %></td>
-        <td><%= event.open_join %></td>
-        <td><%= event.published %></td>
-        <td><%= event.max_guests %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<h1>Published Events</h1>
+<% @public_events.each do |event| %>
+  <div>
+    <h2><%= link_to event.name, event %></h2>
+    <p>
+      Hosted by: <%= User.find(event.creator_id).name %> at <%= event.event_date %><br>
+      Maximum guests: <%= event.max_guests %>
+      <% if user_signed_in? && event.creator_id == current_user.id %>
+        -> <%= link_to 'Edit', edit_event_path(event) %> | 
+        <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
     <% end %>
-  </tbody>
-</table>
+    </p>
+    
+  </div>
+<% end %>
 
-<br>
+<% unless @pending_events.nil? || @pending_events.empty? %>
+  <h1>Draft Events</h1>
 
-<%= link_to 'New Event', new_event_path %>
+  <% @pending_events.each do |event| %>
+    <div>
+      <h2><%= link_to event.name, event %></h2>
+      <p>
+        Planned for <%= event.event_date %><br>
+        Maximum guests: <%= event.max_guests %>
+        <% if user_signed_in? && event.creator_id == current_user.id %>
+          -> <%= link_to 'Edit', edit_event_path(event) %> | 
+          <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+      </p>
+    </div>
+  <% end %>
+
+  <br>
+<% end %>
+
+<% if user_signed_in? %>
+  <%= link_to 'New Event', new_event_path %>
+<% end %>

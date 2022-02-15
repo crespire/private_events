@@ -3,7 +3,9 @@ class Event < ApplicationRecord
   validates :event_date, presence: true
 
   scope :published, -> { where(published: true) }
-  scope :open_join, -> { where(open_join: true) }
+  scope :planned, -> { where(published: false) }
+  scope :can_join, -> { where(open_join: true) }
+  scope :no_join, -> { where(open_join: false) }
 
   has_one :creator, foreign_key: 'creator_id', class_name: 'User'
   has_many :invitations
