@@ -15,6 +15,7 @@ class InvitationsController < ApplicationController
   def new
     event = Event.find(params[:event_id])
     redirect_to :root, alert: 'Event is currently not accepting more attendees.' unless event.open_join
+    redirect_to :root, alert: 'Event is in the past.' unless event.event_date >= DateTime.now
 
     @invitation = current_user.invitations.build
   end
