@@ -4,9 +4,9 @@ class EventsController < ApplicationController
 
   # GET /events or /events.json
   def index
-    @public_events = Event.includes(:host).published.to_come
+    @public_events = Event.includes(:host).published.upcoming
     @past_events = Event.includes(:host).past
-    @pending_events = current_user.hosted_events.to_come.planned if user_signed_in?
+    @pending_events = current_user.hosted_events.planned if user_signed_in?
   end
 
   # GET /events/1 or /events/1.json

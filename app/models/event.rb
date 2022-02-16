@@ -7,7 +7,7 @@ class Event < ApplicationRecord
   scope :can_join, -> { where(open_join: true) }
   scope :no_join, -> { where(open_join: false) }
   scope :past, -> { where('event_date < ?', Date.today) }
-  scope :to_come, -> { where('event_date >= ?', Date.today) }
+  scope :upcoming, -> { where('event_date >= ?', Date.today) }
 
   has_one :host, foreign_key: 'id', class_name: 'User'
   has_many :invitations, dependent: :destroy
