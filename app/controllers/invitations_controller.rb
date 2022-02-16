@@ -14,7 +14,7 @@ class InvitationsController < ApplicationController
   # GET /invitations/new
   def new
     event = Event.find(params[:event_id])
-    redirect_to :root, alert: 'Event is currently not accepting more attendees.' unless event.open_join || event.to_come
+    redirect_to :root, alert: 'Event is currently not accepting more attendees.' unless event.open_join && event.to_come
 
     @invitation = current_user.invitations.build
   end
