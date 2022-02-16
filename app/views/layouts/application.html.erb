@@ -6,27 +6,43 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!-- <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %> -->
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css">
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <nav>
-      <%= link_to "Home", root_path %>
-      <% if user_signed_in? %>
-        &nbsp;|&nbsp;Welcome, <%= link_to current_user.name, edit_user_registration_path(current_user) %>&nbsp;|&nbsp;
-        <%= link_to 'My Events', user_path(current_user) %>&nbsp;|&nbsp;
-        <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-      <% else %>
-        &nbsp;|&nbsp;<%= link_to "Sign Up or Log On", new_user_session_path, method: :get %>
-      <% end %>
-    </nav>
+    <div class="container">
+      <nav>
+        <ul>
+          <li><strong>Hostware</strong></li>
+        </ul>
+        <ul>
+          <li><%= link_to "Home", root_path %></li>
+          <% if user_signed_in? %>
+            <li><%= link_to current_user.name, edit_user_registration_path(current_user) %></li>
+            <% if user_signed_in? %>
+              <li><%= link_to 'New Event', new_event_path %></li>
+            <% end %>
+            <li><%= link_to 'My Events', user_path(current_user) %></li>
+            <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></li>
+          <% else %>
+            <li><%= link_to "Sign Up or Log On", new_user_session_path, method: :get %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>     
     <% unless flash[:notice].nil? %>
-      <p id="notice"><%= notice %></p>
+      <div class="container"><ins><%= notice %></ins></div>
     <% end %>
     <% unless flash[:alert].nil? %>
-      <p id="alert"><%= alert %></p>
+      <div class="container"><mark><%= alert %></mark></div>
     <% end %>
-    <%= yield %>
+    <main class="container">
+      <%= yield %>
+    </main>
+    <footer class="container">
+      Thanks for checking this out!
+    </footer>
   </body>
 </html>

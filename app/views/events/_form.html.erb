@@ -1,6 +1,6 @@
 <%= form_with(model: event) do |form| %>
   <% if event.errors.any? %>
-    <div id="error_explanation">
+    <article>
       <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
 
       <ul>
@@ -8,30 +8,34 @@
           <li><%= error.full_message %></li>
         <% end %>
       </ul>
-    </div>
+    </article>
   <% end %>
 
-  <div class="field">
+  <div class="container">
     <%= form.label :name %>
     <%= form.text_field :name %>
   </div>
 
-  <div class="field">
+  <div class="container">
     <%= form.label :event_date %>
-    <%= form.datetime_select :event_date %>
+    <div class="grid">
+      <%= form.datetime_select :event_date %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :open_join %>
-    <%= form.check_box :open_join %>
+  <div class="grid">
+    <div class="container">
+      <%= form.label :open_join %>
+      <%= form.check_box :open_join %>
+    </div>
+
+    <div class="container">
+      <%= form.label :published %>
+      <%= form.check_box :published %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :published %>
-    <%= form.check_box :published %>
-  </div>
-
-  <div class="field">
+  <div class="container">
     <%= form.label :max_guests %>
     <%= form.number_field :max_guests %>
   </div>

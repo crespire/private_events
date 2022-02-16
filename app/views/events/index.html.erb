@@ -1,55 +1,77 @@
-<h1>Published Events</h1>
-<% @public_events.each do |event| %>
-  <div>
-    <h2><%= link_to event.name, event %></h2>
-    <p>
-      Hosted by: <%= event.host.name %> at <%= event.event_date %><br>
-      Maximum guests: <%= event.max_guests %>
-      <% if user_signed_in? && event.creator_id == current_user.id %>
-        -> <%= link_to 'Edit', edit_event_path(event) %> | 
-        <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
-    </p>
-    
-  </div>
-<% end %>
-
-<h1> Past Events</h1>
-<% @past_events.each do |event| %>
-  <div>
-    <h2><%= link_to event.name, event %></h2>
-    <p>
-      Hosted by: <%= event.host.name %> at <%= event.event_date %><br>
-      Maximum guests: <%= event.max_guests %>
-      <% if user_signed_in? && event.creator_id == current_user.id %>
-        -> <%= link_to 'Edit', edit_event_path(event) %> | 
-        <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
-    </p>
-    
-  </div>
-<% end %>
-
 <% unless @pending_events.nil? || @pending_events.empty? %>
-  <h1>Draft Events</h1>
+  <section>
+    <h4>Draft Events</h4>
+    <ul>
+    <% @pending_events.each do |event| %>
+      <li>
+        <p>
+          <%= link_to event.name, event %>
+          <% if user_signed_in? && event.creator_id == current_user.id %>
+            (<%= link_to 'Edit', edit_event_path(event) %> | 
+            <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>)
+          <% end %>
+        </p>
+      </li>
+    <% end %>
+    </ul>
+  </section>
+<% end %>
 
-  <% @pending_events.each do |event| %>
-    <div>
-      <h2><%= link_to event.name, event %></h2>
-      <p>
-        Planned for <%= event.event_date %><br>
-        Maximum guests: <%= event.max_guests %>
+<div class="grid">
+  <section>
+    <h1>Published Events</h1>
+    <% @public_events.each do |event| %>
+      <article>
+        <header>
+          <hgroup>
+            <h4><%= link_to event.name, event %></h4>
+            <h5>Hosted by: <%= event.host.name %> at <%= event.event_date %></h5>
+          </hgroup>
+        </header>
+        <p>
+          <small>Maximum guests: <%= event.max_guests %></small>
+        </p>
         <% if user_signed_in? && event.creator_id == current_user.id %>
-          -> <%= link_to 'Edit', edit_event_path(event) %> | 
-          <%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %>
+          <footer>
+            <nav>
+              <ul>
+                <li><%= link_to 'Edit', edit_event_path(event) %></li>
+                <li><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              </ul>
+            </nav>
+          </footer>
         <% end %>
-      </p>
-    </div>
-  <% end %>
+      </article>
+    <% end %>
+    </section>
 
-  <br>
-<% end %>
+  <section>
+    <h1>Past Events</h1>
+    <% @past_events.each do |event| %>
+      <article>
+        <header>
+          <hgroup>
+            <h4><%= link_to event.name, event %></h4>
+            <h5>Hosted by: <%= event.host.name %> at <%= event.event_date %></h5>
+          </hgroup>
+        </header>
+        <p>
+          <small>Maximum guests: <%= event.max_guests %></small>
+        </p>
+        <% if user_signed_in? && event.creator_id == current_user.id %>
+          <footer>
+            <nav>
+              <ul>
+                <li><%= link_to 'Edit', edit_event_path(event) %></li>
+                <li><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></li>
+              </ul>
+            </nav>
+          </footer>
+        <% end %>
+      </article>
+    <% end %>
+  </section>
 
-<% if user_signed_in? %>
-  <%= link_to 'New Event', new_event_path %>
-<% end %>
+  
+
+</div>
