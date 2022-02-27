@@ -11,8 +11,14 @@ class EventsController < ApplicationController
 
   # GET /events/1 or /events/1.json
   def show
-    @current_guests = Event.find(params[:id]).attendees.all
+    @current_event = Event.find(params[:id])
+    @current_guests = @current_event.attendees.all
     @current_user_invite = Invitation.where(attendee_id: current_user.id, event_id: params[:id]).take if user_signed_in?
+
+    respond_to do |format|
+      format.html
+      format.json { render json: Event.find(params[:id]) }
+    end
   end
 
   # GET /events/new
